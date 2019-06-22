@@ -2,3 +2,4 @@ node_modules/
 .vscode/
 dist/
 app/css/*
+app/libs/*

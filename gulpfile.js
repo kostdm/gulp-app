@@ -1,9 +1,20 @@
+// Подключаем библиотеки
 const { src, dest, watch, series } = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
 const browserSync = require('browser-sync').create();
 
+// JS файлы проекта
+const jsFiles = [
+  'app/libs/jquery/dist/jquery.js',
+  'app/libs/swiper/dist/js/swiper.js',
+  'app/js/common.js',
+];
+
+// Обработка стилей SASS
 function styles(done) {
   src('app/sass/main.sass')
     .pipe(sourcemaps.init())
@@ -15,6 +26,17 @@ function styles(done) {
   done();
 }
 
+// Обработка скриптов
+function scripts(done) {
+  src(jsFiles)
+    .pipe(concat('build.js'))
+    .pipe(uglify()) // Сжимаем
+    .pipe(dest('app/js'))
+    .pipe(browserSync.stream());
+  done();
+}
+
+// Запуск сервера
 function serve(done) {
   browserSync.init({
     server: {
@@ -25,11 +47,14 @@ function serve(done) {
   done();
 }
 
+// Слежение за изменениями
 function watcher(done) {
-  watch(['app/*.html','app/sass/**/*']).on('change', series(styles, serve));
+  watch(['app/*.html','app/sass/**/*','app/js/common.js']).on('change', series(styles, scripts));
   done();
 }
 
+// Экспорт
 exports.watcher = watcher;
 exports.styles = styles;
-exports.default = series(styles, serve, watcher);
+exports.scripts = scripts;
+exports.default = series(styles, scripts, serve, watcher);
