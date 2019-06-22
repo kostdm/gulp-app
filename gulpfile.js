@@ -14,9 +14,26 @@ const jsFiles = [
   'app/js/common.js',
 ];
 
+// CSS файлы проекта
+const cssFiles = [
+  'app/css/main.css',
+];
+
 // Обработка стилей SASS
 function styles(done) {
   src('app/sass/main.sass')
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(sourcemaps.write())
+    .pipe(dest('app/css'))
+    .pipe(browserSync.stream());
+  done();
+}
+
+// Минификация CSS
+function styles(done) {
+  src(cssFiles)
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(autoprefixer())
