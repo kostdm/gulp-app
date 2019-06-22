@@ -1,0 +1,22 @@
+{
+  "name": "gulp-app",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Konstantin Dmitrienko <kostdm@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/kostdm/gulp-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "swiper": "^4.5.0",
+    "jquery": "^3.4.1"
+  }
+}
