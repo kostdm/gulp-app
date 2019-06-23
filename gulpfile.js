@@ -1,55 +1,61 @@
 // Подключаем библиотеки
-const { src, dest, watch, series } = require('gulp');
+const { src, dest, watch, parallel, series } = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const del = require('del');
+const cleanCSS = require('gulp-clean-css');
 const browserSync = require('browser-sync').create();
 
 // JS файлы проекта
 const jsFiles = [
   'app/libs/jquery/dist/jquery.js',
   'app/libs/swiper/dist/js/swiper.js',
-  'app/js/common.js',
+  'app/js/custom.js',
 ];
 
-// CSS файлы проекта
-const cssFiles = [
-  'app/css/main.css',
-];
-
-// Обработка стилей SASS
-function styles(done) {
+// Стили
+function styles(done){
   src('app/sass/main.sass')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    .pipe(autoprefixer())
     .pipe(sourcemaps.write())
+    .pipe(autoprefixer())
     .pipe(dest('app/css'))
     .pipe(browserSync.stream());
   done();
 }
 
-// Минификация CSS
-function styles(done) {
-  src(cssFiles)
-    .pipe(sourcemaps.init())
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write())
-    .pipe(dest('app/css'))
-    .pipe(browserSync.stream());
-  done();
-}
-
-// Обработка скриптов
+// Скрипты
 function scripts(done) {
   src(jsFiles)
     .pipe(concat('build.js'))
-    .pipe(uglify()) // Сжимаем
     .pipe(dest('app/js'))
     .pipe(browserSync.stream());
+  done();
+}
+
+// Сборка проекта
+function build(done){
+  const cssFiles = src('app/css/main.css')
+                    .pipe(cleanCSS({ level: 2 }))
+                    .pipe(dest('dist/css'));
+  const jsFiles = src('app/js/build.js')
+                    .pipe(uglify())
+                    .pipe(dest('dist/js'));
+  const htmlFiles = src('app/**/*.html')
+                      .pipe(dest('dist'));
+  const fontsFiles = src('app/fonts/**/*')
+                      .pipe(dest('dist/fonts'));
+  const imagesFiles = src('app/images/**/*')
+                      .pipe(dest('dist/images'));
+  done();
+}
+
+function cleanDist(done){
+  del.sync('dist');
   done();
 }
 
@@ -66,12 +72,15 @@ function serve(done) {
 
 // Слежение за изменениями
 function watcher(done) {
-  watch(['app/*.html','app/sass/**/*','app/js/common.js']).on('change', series(styles, scripts));
+  watch('app/sass/**/*').on('change', parallel(styles));
+  watch('app/js/custom.js').on('change', parallel(scripts));
+  watch('app/*.html').on('change', browserSync.reload);
   done();
 }
 
 // Экспорт
-exports.watcher = watcher;
 exports.styles = styles;
 exports.scripts = scripts;
-exports.default = series(styles, scripts, serve, watcher);
+exports.watcher = watcher;
+exports.build = series(cleanDist, parallel(styles, scripts), build);
+exports.default = series(parallel(styles, scripts), serve, watcher);
