@@ -50,7 +50,8 @@ function build(done){
   const fontsFiles = src('app/fonts/**/*')
                       .pipe(dest('dist/fonts'));
   const imagesFiles = src('app/images/**/*')
-                      .pipe(dest('dist/images'));
+                        .pipe(imagemin())
+                        .pipe(dest('dist/images'));
   done();
 }
 
