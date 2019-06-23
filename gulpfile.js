@@ -7,12 +7,12 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const del = require('del');
 const cleanCSS = require('gulp-clean-css');
+const imagemin = require('gulp-imagemin');
 const browserSync = require('browser-sync').create();
 
 // JS файлы проекта
 const jsFiles = [
   'app/libs/jquery/dist/jquery.js',
-  'app/libs/swiper/dist/js/swiper.js',
   'app/js/custom.js',
 ];
 
