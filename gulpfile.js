@@ -6,7 +6,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const del = require('del');
-const cleanCSS = require('gulp-clean-css');
+const cssnano = require('gulp-cssnano');
 const imagemin = require('gulp-imagemin');
 const browserSync = require('browser-sync').create();
 
@@ -40,7 +40,7 @@ function scripts(done) {
 // Сборка проекта
 function build(done){
   const cssFiles = src('app/css/main.css')
-                    .pipe(cleanCSS({ level: 2 }))
+                    .pipe(cssnano({discardComments: {removeAll: true}}))
                     .pipe(dest('dist/css'));
   const jsFiles = src('app/js/build.js')
                     .pipe(uglify())
