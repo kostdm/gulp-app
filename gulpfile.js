@@ -37,21 +37,34 @@ function scripts(done) {
   done();
 }
 
+// Чистим файлы
+function clean(done){
+  del.sync(['app/css/main.css','app/js/build.css']);
+  done();
+}
+
 // Сборка проекта
 function build(done){
-  const cssFiles = src('app/css/main.css')
-                    .pipe(cssnano({discardComments: {removeAll: true}}))
-                    .pipe(dest('dist/css'));
-  const jsFiles = src('app/js/build.js')
-                    .pipe(uglify())
-                    .pipe(dest('dist/js'));
-  const htmlFiles = src('app/**/*.html')
-                      .pipe(dest('dist'));
-  const fontsFiles = src('app/fonts/**/*')
-                      .pipe(dest('dist/fonts'));
-  const imagesFiles = src('app/images/**/*')
-                        .pipe(imagemin())
-                        .pipe(dest('dist/images'));
+  src('app/sass/main.sass')
+    .pipe(sass({outputStyle: 'expanded'}))
+    .pipe(autoprefixer())
+    .pipe(cssnano({discardComments: {removeAll: true}}))
+    .pipe(dest('dist/css'));
+
+  src('app/js/build.js')
+    .pipe(uglify())
+    .pipe(dest('dist/js'));
+
+  src('app/**/*.html')
+    .pipe(dest('dist'));
+
+  src('app/fonts/**/*')
+    .pipe(dest('dist/fonts'));
+    
+  src('app/images/**/*')
+    .pipe(imagemin())
+    .pipe(dest('dist/images'));
+  
   done();
 }
 
@@ -83,5 +96,5 @@ function watcher(done) {
 exports.styles = styles;
 exports.scripts = scripts;
 exports.watcher = watcher;
-exports.build = series(cleanDist, parallel(styles, scripts), build);
-exports.default = series(parallel(styles, scripts), serve, watcher);
+exports.build = series(clean, cleanDist, parallel(styles, scripts), build);
+exports.default = series(clean, parallel(styles, scripts), serve, watcher);
