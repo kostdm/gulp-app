@@ -43,9 +43,13 @@ function clean(done){
 
 // Сборка проекта
 function build(done){
-  src('app/sass/main.sass')
-    .pipe(sass({outputStyle: 'expanded'}))
-    .pipe(autoprefixer())
+  // src('app/sass/main.sass')
+  //   .pipe(sass({outputStyle: 'expanded'}))
+  //   .pipe(autoprefixer())
+  //   .pipe(cssnano({discardComments: {removeAll: true}}))
+  //   .pipe(dest('dist/css'));
+
+  src('app/css/main.css')
     .pipe(cssnano({discardComments: {removeAll: true}}))
     .pipe(dest('dist/css'));
 
