@@ -1,5 +1,5 @@
 // Подключаем библиотеки
-const { src, dest, watch, parallel } = require('gulp');
+const { src, dest, watch, series, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
@@ -17,24 +17,22 @@ const jsFiles = [
 ];
 
 // Стили
-function styles(done){
-  src('app/sass/main.sass')
+function styles(){
+  return src('app/sass/main.sass')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
     .pipe(autoprefixer())
     .pipe(dest('app/css'))
     .pipe(browserSync.stream());
-  done();
 }
 
 // Скрипты
-function scripts(done) {
-  src(jsFiles)
+function scripts() {
+  return src(jsFiles)
     .pipe(concat('build.js'))
     .pipe(dest('app/js'))
     .pipe(browserSync.stream());
-  done();
 }
 
 // Чистим файлы
@@ -95,6 +93,5 @@ function watcher(done) {
 // Экспорт
 exports.styles = styles;
 exports.scripts = scripts;
-exports.watcher = watcher;
-exports.build = parallel(clean, cleanDist, scripts, build);
-exports.default = parallel(clean, styles, scripts, serve, watcher);
+exports.build = series(clean, cleanDist, parallel(styles, scripts), build);
+exports.default = series(clean, parallel(styles, scripts), serve, watcher);
