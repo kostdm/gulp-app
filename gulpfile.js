@@ -1,5 +1,5 @@
 // Подключаем библиотеки
-const { src, dest, watch, parallel, series } = require('gulp');
+const { src, dest, watch, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
@@ -96,5 +96,5 @@ function watcher(done) {
 exports.styles = styles;
 exports.scripts = scripts;
 exports.watcher = watcher;
-exports.build = series(clean, cleanDist, parallel(styles, scripts), build);
-exports.default = series(clean, parallel(styles, scripts), serve, watcher);
+exports.build = parallel(clean, cleanDist, scripts, build);
+exports.default = parallel(clean, styles, scripts, serve, watcher);
