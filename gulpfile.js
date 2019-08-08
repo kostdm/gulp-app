@@ -1,18 +1,19 @@
 // Подключаем библиотеки
-const { src, dest, watch, series, parallel } = require('gulp');
-const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
-const autoprefixer = require('gulp-autoprefixer');
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
-const del = require('del');
-const cssnano = require('gulp-cssnano');
-const imagemin = require('gulp-imagemin');
-const browserSync = require('browser-sync').create();
+const { src, dest, watch, series, parallel } = require('gulp'),
+  sass          = require('gulp-sass'),
+  sourcemaps    = require('gulp-sourcemaps'),
+  autoprefixer  = require('gulp-autoprefixer'),
+  concat        = require('gulp-concat'),
+  uglify        = require('gulp-uglify'),
+  del           = require('del'),
+  cssnano       = require('gulp-cssnano'),
+  imagemin      = require('gulp-imagemin'),
+  browserSync   = require('browser-sync').create();
 
 // JS файлы проекта
 const jsFiles = [
   'app/libs/jquery/dist/jquery.js',
+  'app/libs/bootstrap/dist/js/bootstrap.js',
   'app/js/custom.js',
 ];
 
