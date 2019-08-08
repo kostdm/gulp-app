@@ -1,5 +1,14 @@
 /* Миксины */
 
+@mixin font-face($family, $filename, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $family;
+    src: url("../fonts/"+$filename+".woff2") format("woff2");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
 @mixin button-reset {
   padding: 0;
   border: none;
