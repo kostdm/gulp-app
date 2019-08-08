@@ -19,7 +19,7 @@ const jsFiles = [
 
 // Стили
 function styles(){
-  return src('app/sass/main.sass')
+  return src('app/sass/main.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
