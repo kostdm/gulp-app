@@ -1,4 +1,27 @@
 // Специальные классы
   
-.text-center
-  text-align: center
+
+.page
+  margin: 0
+  padding: 0
+  font-size: $font-size
+  color: $text-color
+
+.list
+  margin: 0
+  padding: 0
+  list-style: none
+
+.item
+  margin: 0
+  padding: 0
+  display: inline-block
+
+.link
+  color: $link-color
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+.button
+  @include button-reset

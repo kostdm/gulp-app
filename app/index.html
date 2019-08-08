@@ -10,18 +10,49 @@
   <link rel="stylesheet" href="css/main.css">
 
 </head>
-<body>
-  <div class="container">
-    <h1>Hello!</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At odit dolorem quaerat architecto inventore? Dolorum debitis perspiciatis natus sunt. Animi ipsa in corporis ea aut voluptates culpa voluptate maxime exercitationem!</p>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">1</div>
-      <div class="col-lg-6"><button type="button" class="btn btn-primary">Primary</button>
+<body class="page">
+  <div class="page__inner">
+
+    <header class="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3">
+            <a class="logo">
+              <img src="" alt="Logo" class="logo__image">
+            </a>
+          </div> <!-- logo -->
+          <div class="col-xl-6">
+            <nav class="navigation">
+              <ul class="navigation__list list">
+                <li class="navigation__item item"><a href="" class="navigation__link link">О нас</a></li>
+                <li class="navigation__item item"><a href="" class="navigation__link link navigation__link--active">Приемущества</a></li>
+                <li class="navigation__item item"><a href="" class="navigation__link link">Клиенты</a></li>
+                <li class="navigation__item item"><a href="" class="navigation__link link">Услуги</a></li>
+                <li class="navigation__item item"><a href="" class="navigation__link link">Цены</a></li>
+                <li class="navigation__item item"><a href="" class="navigation__link link">Контакты</a></li>
+              </ul>
+            </nav>
+          </div> <!-- menu -->
+          <div class="col-xl-3">
+              <a href="" class="header__phone">8 900 123 45 67</a>
+              <button class="header__callback-button button">Заказать звонок</button>
+            </div>
+          </div> <!-- callback -->
+        </div> <!-- top line -->
       </div>
-    </div>
-  </div>
+    </header>
+
+    <main class="content" role="main">
+
+    </main>
+
+    <footer class="footer">
+
+    </footer>
+
+  </div> <!-- page__inner -->
+  
+  <!-- SCRIPTS -->
   <script src="js/build.js"></script>
 </body>
 </html>
