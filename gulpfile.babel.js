@@ -1,14 +1,14 @@
 // Подключаем библиотеки
-const { src, dest, watch, series, parallel } = require('gulp'),
-  sass          = require('gulp-sass'),
-  sourcemaps    = require('gulp-sourcemaps'),
-  autoprefixer  = require('gulp-autoprefixer'),
-  concat        = require('gulp-concat'),
-  uglify        = require('gulp-uglify'),
-  del           = require('del'),
-  cssnano       = require('gulp-cssnano'),
-  imagemin      = require('gulp-imagemin'),
-  browserSync   = require('browser-sync').create();
+import { src, dest, watch, series, parallel } from 'gulp';
+import sass from 'gulp-sass';
+import sourcemaps from 'gulp-sourcemaps';
+import autoprefixer from 'gulp-autoprefixer';
+import concat from 'gulp-concat';
+import uglify from 'gulp-uglify';
+import del from 'del';
+import cssnano from 'gulp-cssnano';
+import imagemin from 'gulp-imagemin';
+import browserSync from 'browser-sync';browserSync.create();
 
 // JS файлы проекта
 const jsFiles = [
@@ -63,11 +63,11 @@ function build(done){
 
   src('app/fonts/**/*')
     .pipe(dest('dist/fonts'));
-    
+
   src('app/images/**/*')
     .pipe(imagemin())
     .pipe(dest('dist/images'));
-  
+
   done();
 }
 
