@@ -6,3 +6,10 @@ $link-color:    #3498DB;  // Цвет ссылки в тексте
 
 $font-size:     16px;       // Основной размер шрифта
 $text-color:    #333;     // Основной цвет текста
+
+// Настройка сетки Bootstrap
+$grid-gutter-width: 30px;
+$grid-columns: 12;
+$grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
+$container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1140px);
+$gutter: $grid-gutter-width;

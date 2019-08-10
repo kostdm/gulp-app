@@ -1,14 +1,9 @@
 /* Главный файл стилей */
 
-/* Bootstrap */
-// @import '../libs/bootstrap/scss/bootstrap.scss';
-// @import '../libs/bootstrap/scss/bootstrap-reboot.scss';
-@import '../libs/bootstrap/scss/bootstrap-grid.scss';
-
-
+@import 'vars';        // Переменные
 @import 'mixins';      // Миксины
 @import 'fonts';       // Шрифты
-@import 'vars';        // Переменные
+@import 'libs';        // Библиотеки
 @import 'special';     // Специальные классы
 
 /* ОСНОВНЫЕ СТИЛИ */

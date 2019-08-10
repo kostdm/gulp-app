@@ -13,8 +13,9 @@ import browserSync from 'browser-sync';browserSync.create();
 // JS файлы проекта
 const jsFiles = [
   'app/libs/jquery/dist/jquery.js',
-  'app/libs/bootstrap/dist/js/bootstrap.js',
-  'app/js/custom.js',
+  // 'app/libs/bootstrap/dist/js/bootstrap.js',
+  'app/js/_lazy.js',
+  'app/js/_custom.js',
 ];
 
 // Стили
@@ -44,12 +45,6 @@ function clean(done){
 
 // Сборка проекта
 function build(done){
-  // src('app/sass/main.sass')
-  //   .pipe(sass({outputStyle: 'expanded'}))
-  //   .pipe(autoprefixer())
-  //   .pipe(cssnano({discardComments: {removeAll: true}}))
-  //   .pipe(dest('dist/css'));
-
   src('app/css/main.css')
     .pipe(cssnano({discardComments: {removeAll: true}}))
     .pipe(dest('dist/css'));
